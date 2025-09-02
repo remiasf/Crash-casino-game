@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>REMI.BET</title>
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      /* Контейнер для всех уведомлений */
+   #notificationContainer {
+  position: fixed;
+  bottom: 20px;   /* снизу */
+  right: 20px;    /* справа */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.notification {
+  background: #333;
+  color: #fff;
+  padding: 20px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  max-width: 250px;
+  word-wrap: break-word;
+  font-size: 19px;
+  animation: fade 6s; /* плавное появление/исчезновение */
+}
+
+@keyframes fade {
+  0% { opacity: 0; transform: translateX(0px); }
+  16%{ opacity: 1; transform: translateX(-20px); }
+  84%{ opacity: 1; transform: translateX(-20px); }
+  100% { opacity: 0; transform: translateX(0px); }
+}
+
+    .remi-bet{
+        font-family: Impact;
+        margin-top: 20px;
+        margin-left:20px;
+        font-weight: 300;
+        font-style: italic;
+        text-align: left;
+        font-size: 50px;
+        user-select: none;
+        margin-bottom: 0px;
+    }
+    .bal{
+        margin: 20px;
+        font-weight: 300;
+        font-style: italic;
+        text-align: left;
+        font-size: 50px;
+        user-select: none;
+}
+    .png{
+        height: 40px;
+        width: 100%;
+        background-image: url(pnh/remi.jpg);
+        background-size: 100px 40px;
+        background-repeat: repeat-x;
+        transition: height 0.3s ease;
+        animation: scroll-bg 4s linear infinite;
+        box-sizing: border-box;
+        cursor: pointer;
+        margin: none;
+        }
+        @keyframes scroll-bg {
+        from { background-position: 0 0; }
+        to   { background-position: 100px 0; } /* смещаем точно на ширину картинки */
+        }
+    body {
+      background: linear-gradient(270deg, #295d2e, #2a2a2a, #002658);
+      background-size: 600% 600%;
+      animation: gradientShift 15s ease infinite;
+      font-family: Arial, sans-serif;
+      color: rgb(255, 255, 255);
+      text-align: center;
+      padding-top: 20px;
+      transition: background 1s ease;
+    }
+    .body-net{
+      background-image: url('pnh/nett.png'); 
+             background-size: cover; 
+             background-position: center;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    #multiplier {
+      font-size: 58px;
+      margin-bottom: 20px;
+      font-family: Impact;
+    }
+
+    #balance {
+      border-radius: 7px;
+      display: flex;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      text-align: center;
+      word-wrap: none;
+      background-color: #2a2a2a;
+      width: 200px;
+      height: 80px;
+      font-size: 24px;
+      font-family:Arial;
+      margin-bottom: 20px;
+      margin-right: 20px;
+      text-wrap: none;
+      flex-wrap: flex;
+    }
+
+    button {
+      font-size: 18px;
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #betAmount {
+      font-size: 26px;
+      padding: 16px;
+      width: 100px;
+      text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        border: 2px solid rgba(41, 41, 41, 0);
+        border-radius: 5px;
+        background-color: rgb(31, 31, 31);
+        font: white;
+        color: white;
+    }
+
+    #botBets {
+      margin-top: 40px;
+      max-height: 300px;
+      max-width: 500px;
+      overflow-y: auto;
+      text-align: left;
+      font-size: 16px;
+      background: rgba(0,0,0,0.4);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .bot {
+      margin: 3px 0;
+      padding: 3px 5px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.1);
+    }
+    .element{
+    border: solid 2px rgba(37, 37, 37, 0.507);
+    padding: 20px;
+    background: orange;
+    border-radius: 5px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-transform: uppercase;
+    margin: 5px;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-shadow: 10px rgb(255, 255, 255);
+    user-select: none;
+    cursor: poi;
+    }       
+    .element:hover{
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    opacity: 70%;
+    transform: scale(1.05); /* Легкое увеличение */
+    text-shadow: 10px rgb(255, 255, 255);
+    }
+   .gradient-box {
+  background: linear-gradient(to top, rgba(165, 255, 138, 0.377), rgb(42, 147, 0));
+   }
+   .gradient-box2 {
+  background: linear-gradient(to top, rgba(101, 0, 126, 0.377), rgb(101, 0, 126));
+   }
+   .gradient-box3 {
+  background: linear-gradient(to top, rgb(38, 38, 38, 0.377), rgb(23, 23, 23));
+   }
+   :root {
+      --grid-size: 40px;
+      --grid-rgb: 173, 216, 230;
+      --grid-alpha: 0.35;
+      --glow-alpha: 0.7;
+      --hue-speed: 18s;
+      --grid-speed: 16s;
+      --bg-1: #1a1b1f;
+      --bg-2: #101115;
+    }
+    :root {
+      --grid-size: 40px;
+      --grid-rgb: 173, 216, 230;
+      --grid-alpha: 0.35;
+      --glow-alpha: 0.7;
+      --hue-speed: 18s;
+      --grid-speed: 16s;
+      --bg-1: #1a1b1f;
+      --bg-2: #101115;
+    }
+
+    html, body { height: 100%; margin: 0; }
+    body {
+      background: var(--bg-1);
+      overflow: hidden;
+    }
+    #version{
+      background-size: 600% 600%;
+      font-family: Arial, sans-serif;
+      color: rgba(255, 255, 255, 0.459);
+      display: flex;
+      text-align: end;
+      margin-top: 1px;
+      margin-left: 30px;
+      margin-right: 10px;
+      margin-bottom: 20px; 
+      font-size: 20px;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(120deg, #056937, #1b1b1b, #9c00a1, #000000, #fa66ff),
+        /* radial-gradient(60% 45% at 80% 20%, rgba(255,255,255,var(--glow-alpha)) 0%, rgba(255,255,255,0) 60%), */
+        repeating-linear-gradient(0deg,
+          transparent 0 calc(var(--grid-size) - 1px),
+          rgba(var(--grid-rgb), var(--grid-alpha)) calc(var(--grid-size) - 1px) var(--grid-size)
+        ),
+        repeating-linear-gradient(90deg,
+          transparent 0 calc(var(--grid-size) - 1px),
+          rgba(var(--grid-rgb), var(--grid-alpha)) calc(var(--grid-size) - 1px) var(--grid-size)
+        );
+
+      background-size:
+        400% 400%,
+        120% 120%,
+        var(--grid-size) var(--grid-size),
+        var(--grid-size) var(--grid-size);
+
+      background-blend-mode: soft-light, screen, normal, normal;
+      animation:
+        gradientShift var(--hue-speed) ease-in-out infinite alternate,
+        gridDrift var(--grid-speed) linear infinite;
+    }
+
+    .noise {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
+      background-image: url('data:image/svg+xml;utf8,\
+        <svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140">\
+          <filter id="n">\
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/>\
+            <feColorMatrix type="saturate" values="0"/>\
+          </filter>\
+          <rect width="100%" height="100%" filter="url(%23n)" opacity="0.7"/>\
+        </svg>');
+      background-size: 140px 140px;
+    }
+
+    @keyframes gradientShift {
+      0%   { background-position: 0% 50%, 50% 50%, 0 0, 0 0; }
+      100% { background-position: 100% 50%, 52% 48%, 100px 200px, 200px 100px; }
+    }
+
+    @keyframes gridDrift {
+      0%   { background-position: 0% 50%, 50% 50%, 0 0, 0 0; }
+      100% { background-position: 0% 52%, 48% 50%, 240px 80px, 80px 240px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bg { animation: none; }
+    }
+
+    .footer-gradient {
+      position: fixed; inset: auto 0 0 0; height: 18vh; z-index: -1;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,.45));
+    }
+  </style>
+</head>
+<body>
+    <div id="history" style="display: flex; gap: 5px; flex-wrap: wrap;"></div>
+    <div class="png" onclick="alert('REMI!')"></div>
+  <h1 class="remi-bet">REMI.BET</h1>
+  <div id="version">v. 0.2.3 alpha</div>
+  <div id="multiplier">Ожидание...</div>
+  <div id="balance">Баланс: balance</div>
+<button class="gradient-box3 element"onclick="document.getElementById('betAmount').value = balance">Max</button>
+  <input class="inp" type="number" id="betAmount" value="100" min="0" step="50" vlaue.tofixed="2">
+  <button class="gradient-box element" onclick="makeBet()">Сделать ставку</button>
+  <button class="gradient-box2 element" onclick="cashOut()">Забрать</button>
+
+  <h2>💻 Ставки игроков</h2>
+  <div id="botBets"></div>
+  <div id="notificationContainer"></div>
+<div class="bg" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="footer-gradient" aria-hidden="true"></div>
+  
+  <script>
+    let balance = 500;   // баланс игрока
+    let bet = 0;          // текущая ставка
+    let multiplier = 1;   // текущий икс
+    let isBettingPhase = true;
+    let roundActive = false;
+    let crashPoint;
+    let bots = []; // массив ботов
+
+    const botNames = ["Player123", "XxGamerxX", "Lucky777", "CryptoPro", "Anon", "DarkHorse", "Bot42", "FastWin", "Dreamer", "Turbo"];
+
+    function updateBalance() {
+      document.getElementById("balance").innerText = "Баланс: " + balance.toFixed(2) + "uah";
+    }
+
+    function showNotification(message) {
+    const container = document.getElementById('notificationContainer');
+    const notification = document.createElement('div');
+    notification.classList.add('notification');
+    notification.innerText = message;
+
+    container.appendChild(notification);
+
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 50);
+
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+        notification.remove();
+        }, 400);
+    }, 5000);
+    }
+
+    function logBotAction(name, text, color="white") {
+      const div = document.createElement("div");
+      div.className = "bot";
+      div.style.color = color;
+      div.textContent = name + ": " + text;
+      document.getElementById("botBets").prepend(div);
+    }
+
+    function startBettingPhase() {
+        document.getElementById("multiplier").style.color = "rgb(63, 162, 80)";
+      isBettingPhase = true;
+      roundActive = false;
+      multiplier = 1;
+      crashPoint = null;
+      document.getElementById("multiplier").innerText = "Ожидание ставок...";
+      document.getElementById("botBets").innerHTML = "";
+      bots = [];
+
+      function showNotification(message) {
+      const container = document.getElementById('notificationContainer');
+
+      // создаём элемент уведомления
+      const notification = document.createElement('div');
+      notification.classList.add('notification');
+      notification.innerText = message;
+
+      container.appendChild(notification);
+
+      // небольшая задержка, чтобы анимация сработала
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 50);
+
+      // удаляем через 5 секунд
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          notification.remove();
+        }, 400); // ждём завершения анимации
+      }, 5000);
+    }
+
+      // боты делают ставки
+      botNames.forEach(name => {
+        if (Math.random() < 0.6) { // 60% шанс, что бот поставит
+          let betSize = Math.floor(50 + Math.random() * 5000);
+          let cashOutTarget = (1.2 + Math.random() * 3).toFixed(2);
+          bots.push({ name, betSize, cashOutTarget, active: true });
+          logBotAction(name, "Ставка . . . . " + betSize + "uah. . .            " + cashOutTarget + "x", "#ccc");
+        }
+      });
+
+      let countdown = 10;
+      const timer = setInterval(() => {
+        document.getElementById("multiplier").innerText = "Ставки: " + countdown + " сек";
+        countdown--;
+        if (countdown < 0) {
+          clearInterval(timer);
+          startRound();
+        }
+      }, 1000);
+    }
+
+    function addToHistory(value) {
+  const history = document.getElementById("history");
+
+  const block = document.createElement("div");
+  block.textContent = value.toFixed(2) + "x";
+  block.style.padding = "5px 10px";
+  block.style.borderRadius = "6px";
+  block.style.fontWeight = "bold";
+  block.style.color = "white";
+
+  if (value <= 1.20) {
+    block.style.backgroundColor = "red";
+  } 
+  else if(value <=2) {
+    block.style.backgroundColor = "green";
+  }
+  else if(value <=3) {
+    block.style.backgroundColor = "blue";
+  }
+  else if(value <=5) {
+    block.style.backgroundColor = "purple";
+  }
+  else if(value <=8) {
+    block.style.backgroundColor = "gold",block.style.boxShadow = "4px gold";
+  }
+  else if(value <=20) {
+    block.style.backgroundColor = "orange",block.style.boxShadow = "4px orange";
+  }
+
+  // добавляем блок слева (новый в начале истории)
+  history.prepend(block);
+
+  // ограничиваем историю (например, до 29 последних)
+  if (history.childElementCount > 29) {
+    history.removeChild(history.lastChild);
+  }
+}
+
+    function startRound() {
+      isBettingPhase = false;
+      roundActive = true;
+      function generateCrashPoint() {
+    const r = Math.random();
+
+    if (r < 0.20) {
+      // 75% игр заканчиваются до 2х
+      return 1 + Math.random() * 0.2; // 1.00 - 1.20
+    }
+    else if (r < 0.75) {
+      // 75% игр заканчиваются до 2х
+      return 1.2 + Math.random() * 1; // 1.20 - 2.00
+    } else if (r < 0.95) {
+      // 20% игр — от 2х до 5х
+      return 2 + Math.random() * 3;
+    } else if (r < 0.995) {
+      // 4.5% игр — от 5х до 20х
+      return 5 + Math.random() * 15;
+    } else {
+      // 0.5% игр — очень редкие огромные иксы
+      return 20 + Math.random() * 80;
+    }
+    }
+      crashPoint = generateCrashPoint();
+      const startTime = Date.now();
+
+      function tick() {
+        if (!roundActive) return;
+        let elapsed = (Date.now() - startTime) / 1000;
+        multiplier = Math.exp(elapsed * 0.05); // скорость роста
+        document.getElementById("multiplier").innerText = multiplier.toFixed(2) + "x";
+        
+
+        // проверка ботов
+        bots.forEach(bot => {
+          if (bot.active && multiplier >= bot.cashOutTarget && multiplier < crashPoint) {
+            logBotAction(bot.name, "Забрал " + (bot.betSize * multiplier).toFixed(2) + "uah", "lime");
+            bot.active = false;
+          }
+        });
+
+        if (multiplier >= crashPoint) {
+  document.getElementById("multiplier").innerText = crashPoint.toFixed(2) + "x";
+  document.getElementById("multiplier").style.color = "red"; // красный при краше
+  addToHistory(crashPoint);
+  bots.forEach(bot => {
+    if (bot.active) {
+      logBotAction(bot.name, "Проиграл " + bot.betSize + "uah", "red");
+      bot.active = false;
+    }
+  });
+  bet = 0;
+  roundActive = false;
+  setTimeout(startBettingPhase, 5000);
+} else {
+  requestAnimationFrame(tick);
+}
+      }
+      tick();
+    }
+
+    function makeBet() {
+      if (!isBettingPhase) {
+        showNotification("Ставки закрыты! Дождитесь следуещего раунда.");
+        return;
+      }
+      let amount = parseFloat(document.getElementById("betAmount").value);
+      if (balance >= amount && amount > 0) {
+        bet = amount;
+        balance -= amount;
+        showNotification(`Ставка: ${bet.toFixed(2)}uah`);
+        updateBalance();
+      } else {
+        showNotification("Недостаточно средств!");
+      }
+    }
+
+    function cashOut() {
+      if (roundActive && bet > 0) {
+        let win = bet * multiplier;
+        balance += win;
+        showNotification(`Поздравляем! Вы выиграли ${win.toFixed(2)}uah`);
+        updateBalance();
+        bet = 0;
+      } else {
+        showNotification("Нечего забирать!");
+      }
+      
+    }
+
+    updateBalance();
+    startBettingPhase();
+    
+  </script>
+
+</body>
+</html>
